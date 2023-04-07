@@ -8,10 +8,10 @@ namespace PaymentProgram
 {
     internal class PaymentCard
     {
-        public string CardNumber;
-        public string CardExpDate;
-        public string CardholderName;
-        public int CardCVV;
+        private string CardNumber;
+        private string CardExpDate;
+        private string CardholderName;
+        private int CardCVV;
 
         public PaymentCard(string cardNumber, string cardExpDate, string cardholderName, int cardCVV)
         { 
@@ -23,7 +23,13 @@ namespace PaymentProgram
                     
         }
 
+        public string GetFullInformation()
+        {
 
+            return string.Format("CardNumber: {0}, CardExpDate: {1}, CardholderName: {2}, Card CVV: {3}", CardNumber, CardExpDate, CardholderName, CardCVV);
+
+
+        }
 
     }
 }

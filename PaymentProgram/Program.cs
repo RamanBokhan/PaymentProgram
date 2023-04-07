@@ -8,8 +8,7 @@
         foreach (PaymentCard card in paymentCards) 
             {
             
-            Console.WriteLine("CardNumber: {0}, CardExpDate: {1}, CardholderName: {2}, Card CVV: {3}",
-                card.CardNumber, card.CardExpDate, card.CardholderName, card.CardCVV);
+            Console.WriteLine(card.GetFullInformation());
             
             }
             return true;
