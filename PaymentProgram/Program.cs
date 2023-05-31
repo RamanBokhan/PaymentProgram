@@ -1,31 +1,46 @@
-﻿namespace PaymentProgram
+﻿using PaymentProgram.PaymentMeans;
+
+namespace PaymentProgram
 {
     internal class Program
     {   
 
-        static bool PrintCards(PaymentCard[] paymentCards) 
-        {
-        foreach (PaymentCard card in paymentCards) 
-            {
-            
-            Console.WriteLine(card.GetFullInformation());
-            
-            }
-            return true;
-
-        }
-
         static void Main(string[] args)
          {
-            PaymentCard Card1 = new PaymentCard("1234 1235 1245 1254", "02/25", "Vasia Pupkin", 666);
-            PaymentCard Card2 = new PaymentCard("6666 1225 4569 1545", "05/24", "Levy Shtraus", 345);
-            PaymentCard Card3 = new PaymentCard("1518 1551 1515 4844", "06/27", "Andrew Warhola", 564);
-            PaymentCard Card4 = new PaymentCard("1515 4484 1544 3323", "04/25", "Pablo Picasso", 456);
-            PaymentCard Card5 = new PaymentCard("5155 8875 4848 4848", "08/25", "Vincent van Gogh", 358);
+            Address address1 = new Address("Minsk", "Chapaeva", "8A", "44");
+            Address address2 = new Address("Grodno", "Sovetskaya", "10", "2");
+            Address address3 = new Address("Brest", "Lenina", "5", "78");
+            Address address4 = new Address("Vitebsk", "Pobedy", "20", "13");
+            Address address5 = new Address("Vitebsk", "Kosmonavtov", "3", "34");
 
-            PaymentCard[] paymentCards = new PaymentCard[] { Card1, Card2, Card3, Card4, Card5 };
+            BankClient bankClient1 = new BankClient("Vasia", "Pupkin", address1);
+            BankClient bankClient2 = new BankClient("Petr", "Ivanov", address2);
+            BankClient bankClient3 = new BankClient("Ivan", "Petrov", address3);
+            BankClient bankClient4 = new BankClient("Svetlana", "Sidorova", address4);
+            BankClient bankClient5 = new BankClient("Olga", "Nikitina", address5);
 
-            PrintCards(paymentCards);
+            CardExpDate cardExpDate1 = new CardExpDate(10, 23);
+            CardExpDate cardExpDate2 = new CardExpDate(04, 25);
+            CardExpDate cardExpDate3 = new CardExpDate(12, 25);
+            CardExpDate cardExpDate4 = new CardExpDate(06, 24);
+            CardExpDate cardExpDate5 = new CardExpDate(08, 26);
+
+            bankClient1.AddPaymentMean(new DebetCard("1234 1235 1245 1254", cardExpDate1, 325, 1000f, 0.05f));
+            bankClient1.AddPaymentMean(new BitCoin(2000f));
+            bankClient1.AddPaymentMean(new Cash(250f));
+            bankClient1.AddPaymentMean(new CashBackCard("6666 1225 4569 1545", cardExpDate2, 924, 666f, 0.02f));
+            bankClient1.AddPaymentMean(new CreditCard("1518 1551 1515 4844", cardExpDate3, 854, 500f, 0.05f, 3000));
+
+            bankClient1.Pay(125f);
+            bankClient1.Pay(500f);
+            bankClient1.Pay(1050f);
+            bankClient1.Pay(1800f);
+            bankClient1.Pay(700f);
+
+
+
+
+            Console.WriteLine(bankClient1 + " \n" + bankClient1.GetPaymentMean());
         }
     }
 }
