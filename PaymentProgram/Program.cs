@@ -1,4 +1,5 @@
-﻿using PaymentProgram.PaymentMeans;
+﻿using PaymentProgram.Comparers;
+using PaymentProgram.PaymentMeans;
 
 namespace PaymentProgram
 {
@@ -30,6 +31,22 @@ namespace PaymentProgram
             bankClient1.AddPaymentMean(new Cash(250f));
             bankClient1.AddPaymentMean(new CashBackCard("6666 1225 4569 1545", cardExpDate2, 924, 666f, 0.02f));
             bankClient1.AddPaymentMean(new CreditCard("1518 1551 1515 4844", cardExpDate3, 854, 500f, 0.05f, 3000));
+
+            // Task 02:
+            bankClient2.AddPaymentMean(new DebetCard("1515 4544 8787 1545", cardExpDate2, 999, 2500f, 0.05f));
+            bankClient2.AddPaymentMean(new BitCoin(600f));
+            bankClient3.AddPaymentMean(new Cash(500f));
+            bankClient3.AddPaymentMean(new CashBackCard("1515 4544 5454 8787", cardExpDate3, 565, 700f, 0.02f));
+            bankClient3.AddPaymentMean(new CreditCard("4545 4548 4877 5151", cardExpDate4, 888, 999f, 0.05f, 200f));
+
+            List<BankClient> clients = new List<BankClient> { bankClient1, bankClient2, bankClient3 };
+
+            clients.Sort(new ClientNameComparer());
+            clients.Sort(new AddressComparer());
+            clients.Sort(new CountCardComparer());
+            clients.Sort(new AmountOfMoney());
+            clients.Sort(new MaxOfMoneyComparer());
+
 
             bankClient1.Pay(125f);
             bankClient1.Pay(500f);

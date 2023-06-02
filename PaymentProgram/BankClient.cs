@@ -78,5 +78,34 @@ namespace PaymentProgram
             return string.Join( "\n" , PaymentMeans);
 
         }
+
+        public int CountCard() 
+        {
+            return PaymentMeans.Count;
+        }
+
+        public float AmountOfMoney() 
+        {
+            float amountOfMoney = 0;
+            foreach (var card in PaymentMeans) 
+            {
+                amountOfMoney = +card.Balance;            
+            }
+            return amountOfMoney;
+        }
+
+        public float GetMaxOfMoney() 
+        {
+            float maxOfMoney = 0;
+            foreach (var card in PaymentMeans)
+            { 
+                if (card.Balance > maxOfMoney) 
+                {
+                    maxOfMoney = card.Balance;
+                }
+            }
+            return maxOfMoney;
+        }
+            
     }
 }
